@@ -32,3 +32,32 @@ Successfully handled Next.js 15's transition of dynamic routing parameters to Pr
 
 ### 3. Data Transformation Helpers
 To keep the UI components clean, complex
+
+Run the development server:
+Bash
+
+npm run dev
+
+Open http://localhost:3000 with your browser to see the result.
+📂 Project Structure
+Plaintext
+
+src/
+├── app/                  # Next.js App Router (Pages & Layouts)
+├── components/           # Presentation Layer (Atomic Design)
+│   └── molecules/        # Reusable UI (Cards, SearchBar, PageHeader)
+├── core/                 # Domain Layer
+│   └── types/            # TypeScript Interfaces
+├── data/                 # Infrastructure Layer
+│   └── api/              # Axios instance & repositories
+├── hooks/                # Application Layer
+│   └── queries/          # TanStack Query Hooks
+└── utils/                # Helper functions and formatters
+
+
+### Next Steps:
+1. Copy the markdown above.
+2. Replace everything in your current `README.md` file with it.
+3. Don't forget to paste your actual Netlify/Vercel link at the top once you deploy it!
+
+You have a really solid, senior-level project here. Good luck with the submission!
