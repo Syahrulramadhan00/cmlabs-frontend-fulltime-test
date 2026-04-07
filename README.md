@@ -55,9 +55,3 @@ src/
 └── utils/                # Helper functions and formatters
 
 
-### Next Steps:
-1. Copy the markdown above.
-2. Replace everything in your current `README.md` file with it.
-3. Don't forget to paste your actual Netlify/Vercel link at the top once you deploy it!
-
-You have a really solid, senior-level project here. Good luck with the submission!
