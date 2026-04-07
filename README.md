@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MealApp - CMLABS Frontend Pre-assessment
 
-## Getting Started
+A responsive web application to browse ingredients, filter delicious meals, and view detailed cooking instructions using TheMealDB API. Built as part of the Front-end Developer Practical Task for PT CMLABS INDONESIA DIGITAL.
 
-First, run the development server:
+🚀 **[Live Demo: Add your Vercel/Netlify link here]**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🛠 Tech Stack
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+* **Framework:** Next.js (App Router) + React
+* **Language:** TypeScript
+* **State Management & Fetching:** TanStack Query (React Query) + Axios
+* **Styling:** Tailwind CSS + `tailwind-merge`
+* **Icons:** `lucide-react`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🏗 Architecture & Design Patterns
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+To ensure scalability and maintainability, this project strictly adheres to **Clean Architecture** principles combined with **Atomic Design** for the UI layer.
 
-## Learn More
+* **Domain Layer (`core/types`):** TypeScript interfaces defining the core data shapes (Ingredients, Meals, Details).
+* **Infrastructure Layer (`data/api`):** Axios instances and API repositories bridging the application to TheMealDB.
+* **Application Layer (`hooks/queries`):** Custom TanStack Query hooks managing server state, caching, and loading flags.
+* **Presentation Layer (`components` & `app`):** * Divided into Atomic components (`Atoms`, `Molecules`, `Organisms`) for maximum UI reusability.
+  * Uses `tailwind-merge` to safely construct dynamic component classes without CSS cascade conflicts.
 
-To learn more about Next.js, take a look at the following resources:
+## ✨ Technical Highlights & Decisions
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 1. Client-Side Lazy Loading (Infinite Scroll)
+TheMealDB's `list.php?i=list` endpoint returns hundreds of ingredients at once without server-side pagination support. To prevent UI freezing and DOM bloat, I implemented an **Intersection Observer** paired with `useMemo`. The app loads items in batches of 15 as the user scrolls to the bottom of the screen, ensuring a buttery-smooth UX while preserving the front-end search functionality.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 2. Next.js 15 Dynamic Route Promises
+Successfully handled Next.js 15's transition of dynamic routing parameters to Promises. The `React.use()` hook is utilized to unwrap `params` safely in Client Components before executing data fetches.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 3. Data Transformation Helpers
+To keep the UI components clean, complex
