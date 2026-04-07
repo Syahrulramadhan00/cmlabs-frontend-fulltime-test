@@ -1,57 +1,98 @@
-# MealApp - CMLABS Frontend Pre-assessment
+# MealApp — CMLABS Frontend Pre-assessment
 
-A responsive web application to browse ingredients, filter delicious meals, and view detailed cooking instructions using TheMealDB API. Built as part of the Front-end Developer Practical Task for PT CMLABS INDONESIA DIGITAL.
+MealApp is a responsive web app for browsing ingredients, exploring meals, and reading detailed cooking instructions from TheMealDB API. It was created for the Front-end Developer Practical Task at PT CMLABS INDONESIA DIGITAL.
 
-🚀 **[Live Demo: Add your Vercel/Netlify link here]**
+**Live demo:** https://cmlabs-frontend-fulltime-test-liart.vercel.app/
 
-## 🛠 Tech Stack
+## Tech stack
 
-* **Framework:** Next.js (App Router) + React
-* **Language:** TypeScript
-* **State Management & Fetching:** TanStack Query (React Query) + Axios
-* **Styling:** Tailwind CSS + `tailwind-merge`
-* **Icons:** `lucide-react`
+- Next.js 16 with the App Router
+- React 19
+- TypeScript
+- TanStack Query
+- Axios
+- Tailwind CSS
+- tailwind-merge
+- lucide-react
 
-## 🏗 Architecture & Design Patterns
+## Features
 
-To ensure scalability and maintainability, this project strictly adheres to **Clean Architecture** principles combined with **Atomic Design** for the UI layer.
+- Browse ingredients on the landing page
+- Search ingredients instantly on the client side
+- Load ingredients in batches with infinite scroll behavior
+- View meals for a selected ingredient
+- Search meals within an ingredient detail page
+- Open full meal details with ingredients, instructions, and video tutorials
+- Show clear empty, loading, and error states
 
-* **Domain Layer (`core/types`):** TypeScript interfaces defining the core data shapes (Ingredients, Meals, Details).
-* **Infrastructure Layer (`data/api`):** Axios instances and API repositories bridging the application to TheMealDB.
-* **Application Layer (`hooks/queries`):** Custom TanStack Query hooks managing server state, caching, and loading flags.
-* **Presentation Layer (`components` & `app`):** * Divided into Atomic components (`Atoms`, `Molecules`, `Organisms`) for maximum UI reusability.
-  * Uses `tailwind-merge` to safely construct dynamic component classes without CSS cascade conflicts.
+## Architecture
 
-## ✨ Technical Highlights & Decisions
+The project follows Clean Architecture ideas together with Atomic Design for the UI layer:
 
-### 1. Client-Side Lazy Loading (Infinite Scroll)
-TheMealDB's `list.php?i=list` endpoint returns hundreds of ingredients at once without server-side pagination support. To prevent UI freezing and DOM bloat, I implemented an **Intersection Observer** paired with `useMemo`. The app loads items in batches of 15 as the user scrolls to the bottom of the screen, ensuring a buttery-smooth UX while preserving the front-end search functionality.
+- Domain layer: core types and data models
+- Infrastructure layer: API clients and repository functions
+- Application layer: TanStack Query hooks for server state
+- Presentation layer: reusable UI components and app routes
 
-### 2. Next.js 15 Dynamic Route Promises
-Successfully handled Next.js 15's transition of dynamic routing parameters to Promises. The `React.use()` hook is utilized to unwrap `params` safely in Client Components before executing data fetches.
+## Project structure
 
-### 3. Data Transformation Helpers
-To keep the UI components clean, complex
-
-Run the development server:
-Bash
-
-npm run dev
-
-Open http://localhost:3000 with your browser to see the result.
-📂 Project Structure
-Plaintext
-
+```text
 src/
-├── app/                  # Next.js App Router (Pages & Layouts)
-├── components/           # Presentation Layer (Atomic Design)
-│   └── molecules/        # Reusable UI (Cards, SearchBar, PageHeader)
-├── core/                 # Domain Layer
-│   └── types/            # TypeScript Interfaces
-├── data/                 # Infrastructure Layer
-│   └── api/              # Axios instance & repositories
-├── hooks/                # Application Layer
-│   └── queries/          # TanStack Query Hooks
-└── utils/                # Helper functions and formatters
+├── app/
+│   ├── globals.css
+│   ├── layout.tsx
+│   ├── page.tsx
+│   ├── provider.tsx
+│   ├── ingredients/
+│   │   └── [ingredient]/page.tsx
+│   └── meals/
+│       └── [id]/page.tsx
+├── components/
+│   ├── atoms/
+│   ├── molecules/
+│   │   ├── IngredientCard.tsx
+│   │   ├── MealCard.tsx
+│   │   ├── PageHeader.tsx
+│   │   ├── SearchBar.tsx
+│   │   └── SearchEmptyState.tsx
+│   └── organisms/
+├── core/
+│   └── types/
+│       └── meal.ts
+├── data/
+│   └── api/
+│       ├── axiosClient.ts
+│       └── mealRepositories.ts
+└── hooks/
+    └── queries/
+        └── useMeal.ts
+```
 
+## Getting started
 
+### 1. Install dependencies
+
+```bash
+npm install
+```
+
+### 2. Run the development server
+
+```bash
+npm run dev
+```
+
+Then open http://localhost:3000 in your browser.
+
+## Available scripts
+
+- `npm run dev` — start the local development server
+- `npm run build` — build the app for production
+- `npm run start` — start the production server
+- `npm run lint` — run ESLint
+
+## Notes
+
+- The app uses the public TheMealDB API.
+- Dynamic route params are handled with React's `use()` in client components.
+- Meal details are formatted with helper utilities in `src/utils/mealFormatters.ts`.
